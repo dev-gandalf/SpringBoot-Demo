@@ -3,6 +3,7 @@ package com.rakshith.project.SpringBoot.controller;
 
 
 
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,33 +20,49 @@ import com.rakshith.project.SpringBoot.model.Product;
 @RestController
 public class Controller {
 
+
+StringBuilder baseUrl = new StringBuilder("http://localhost:8000");
+RestTemplate restTemplate = new RestTemplate();
+
+	
+	
+
+@GetMapping("/check")
+public String test(){
+	
+return "it works";
+}
+
+
+
 	@GetMapping("/product/list")
 	public Product[] index() {
 		
-		RestTemplate restTemplate = new RestTemplate();
-		Product[] productList = restTemplate.getForObject("http://localhost:8000/product/list", Product[].class);
-		return productList;
+		StringBuilder url = new StringBuilder(baseUrl + "/product/list");
+		
+		return restTemplate.getForObject(url.toString(), Product[].class);
 	}
+	
 	
 	
 	@PostMapping("/product/create")
 	  public String postProduct(@RequestBody Product product) {
 		
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpEntity<Product> request = new HttpEntity<>(product);
-		String response = restTemplate.postForObject("http://localhost:8000/product/create", request, String.class);
 		
-	    return response;
+		StringBuilder url = new StringBuilder(baseUrl + "/product/create");
+		HttpEntity<Product> request = new HttpEntity<>(product);
+		return restTemplate.postForObject(url.toString(), request, String.class);
+		
+	    
 	  }
 	
 	
 	@DeleteMapping("/product/delete/{productName}")
 	public String deleteProduct(@PathVariable String productName){
-		RestTemplate restTemplate = new RestTemplate();
 		
-		String deleteURL = "http://localhost:8000/product/delete" + "/" + productName;
-		ResponseEntity<String> response = restTemplate.exchange(deleteURL, HttpMethod.DELETE, null, String.class);
+		StringBuilder url = new StringBuilder(baseUrl + "/product/delete/" + productName);
+		
+		ResponseEntity<String> response = restTemplate.exchange(url.toString(), HttpMethod.DELETE, null, String.class);
 		return response.getBody();
 	};
 	
