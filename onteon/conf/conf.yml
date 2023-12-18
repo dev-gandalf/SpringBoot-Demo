@@ -14,7 +14,7 @@ app:
         sysParams: null
         mainClass: null
         mainFunctionArgs: null
-        successLine: 'Spring Boot properly started'
+        successLine: 'started Application'
         makeActionOnMemoryOverflow: true
         maxActionOnMemoryOverflow: 5
         increasePercentageOnMemoryOverflow: 20
