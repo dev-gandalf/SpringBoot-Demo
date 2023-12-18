@@ -21,7 +21,7 @@ import com.rakshith.project.SpringBoot.model.Product;
 public class Controller {
 
 
-StringBuilder baseUrl = new StringBuilder("http://localhost:8000");
+StringBuilder baseUrl = new StringBuilder("http://localhost:8021/_by_name/Vertx-app");
 RestTemplate restTemplate = new RestTemplate();
 
 	
